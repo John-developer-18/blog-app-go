@@ -1,0 +1,90 @@
+{{define "post"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ThreadSpace — The Case for Slower, Deeper Thinking in Tech</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+
+  <!-- NAVBAR (Logged-in State) -->
+  <header class="navbar">
+    <div class="navbar__inner">
+      <a href="/post" class="navbar__brand">
+        <span class="navbar__brand-icon">✦</span>
+        <span>ThreadSpace</span>
+      </a>
+      <nav class="navbar__links">
+        <a href="index.html" class="navbar__link">Home</a>
+        <a href="posts.html" class="navbar__link">View Posts</a>
+        <a href="/make-post" class="navbar__link">Make Post</a>
+        <a href="/login" class="btn btn--ghost btn--sm">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main-content">
+    <div class="container">
+      <div class="post-detail">
+
+        <a href="/posts" class="back-link">Back to Posts</a>
+
+        <h1 class="post-detail__title">
+          The Case for Slower, Deeper Thinking in Tech
+        </h1>
+
+        <div class="post-detail__meta">
+          <div class="avatar">A</div>
+          <div>
+            <div class="post-detail__author-name">alex_chen</div>
+            <div class="post-detail__author-label">Apr 3, 2026</div>
+          </div>
+        </div>
+
+        <div class="post-detail__body">
+          <p>
+            We live in an era obsessed with speed. Fast iteration, rapid deployment,
+            move fast and break things. Entire company cultures are built around the
+            idea that velocity is virtue — that the team shipping the most features per
+            sprint is inherently the most successful one.
+          </p>
+          <p>
+            But some of the most impactful breakthroughs in technology came from
+            sustained, patient inquiry — the kind that takes months or years to bear
+            fruit. The relational database, the Unix philosophy, the original Macintosh
+            interface. None of these emerged from a two-week sprint cycle.
+          </p>
+          <p>
+            This post explores why slowing down might actually accelerate meaningful
+            progress. Not in a productivity-hack sense, but in a structural sense: how
+            organisations that carve out genuine thinking time tend to build things that
+            compound in value rather than accrue technical and conceptual debt.
+          </p>
+          <p>
+            The pressure to ship is real and often legitimate. Users have problems now.
+            Competitors are moving. Revenue targets exist. But there is a difference
+            between urgency and thoughtlessness — between responding quickly and
+            reacting without reflection.
+          </p>
+          <p>
+            The goal is not to slow everything down. It is to identify which decisions
+            benefit from depth, and to protect the conditions that make that depth
+            possible.
+          </p>
+        </div>
+
+        <div class="post-detail__footer">
+          <a href="/posts" class="btn btn--secondary">← All Posts</a>
+          <a href="/" class="btn btn--ghost">Home</a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
+{{end}}

@@ -1,0 +1,79 @@
+{{define "register"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ThreadSpace — Register</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="navbar__inner">
+      <a href="/" class="navbar__brand">
+        <span class="navbar__brand-icon">✦</span>
+        <span>ThreadSpace</span>
+      </a>
+      <nav class="navbar__links">
+        <a href="/" class="navbar__link">Home</a>
+        <a href="/posts" class="navbar__link">View Posts</a>
+        <a href="/login" class="navbar__link">Login</a>
+        <a href="/register" class="btn btn--primary btn--sm navbar__link--active">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main-content auth-page">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-icon">🚀</div>
+        <h1 class="auth-title">Create an account</h1>
+        <p class="auth-subtitle">Join ThreadSpace and start sharing your ideas</p>
+      </div>
+
+      <hr class="auth-divider" />
+
+      <form action="#" method="POST">
+        <div class="form-group">
+          <label class="form-label" for="username">Username</label>
+          <input
+            class="form-input"
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Choose a username"
+            autocomplete="username"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input
+            class="form-input"
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Create a password"
+            autocomplete="new-password"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--full">
+          Create Account
+        </button>
+      </form>
+
+      <p class="auth-footer">
+        Already have an account? <a href="/login">Sign in →</a>
+      </p>
+    </div>
+  </main>
+
+</body>
+</html>
+{{end}}

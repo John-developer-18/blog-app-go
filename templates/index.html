@@ -1,0 +1,49 @@
+{{define "home"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ThreadSpace — Home</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+
+  <!-- NAVBAR (Guest State) -->
+  <header class="navbar">
+    <div class="navbar__inner">
+      <a href="/" class="navbar__brand">
+        <span class="navbar__brand-icon">✦</span>
+        <span>ThreadSpace</span>
+      </a>
+      <nav class="navbar__links">
+        <a href="/" class="navbar__link navbar__link--active">Home</a>
+        <a href="/posts" class="navbar__link">View Posts</a>
+        <a href="/login" class="navbar__link">Login</a>
+        <a href="/register" class="btn btn--primary btn--sm">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main-content">
+    <div class="hero">
+      <div class="hero__badge">✦ Modern Blog Platform</div>
+      <h1 class="hero__title">
+        Where ideas find<br><span>their voice.</span>
+      </h1>
+      <p class="hero__description">
+        A clean, distraction-free space to read thoughtful writing
+        and share your own perspective with the world.
+      </p>
+      <div class="hero__actions">
+        <a href="/posts" class="btn btn--primary btn--lg">View Posts</a>
+        <a href="/login" class="btn btn--secondary btn--lg">Login</a>
+        <a href="/register" class="btn btn--ghost btn--lg">Register</a>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
+{{end}}

@@ -1,0 +1,103 @@
+{{define "posts"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ThreadSpace — Posts</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+
+  <!-- NAVBAR (Logged-in State) -->
+  <header class="navbar">
+    <div class="navbar__inner">
+      <a href="/" class="navbar__brand">
+        <span class="navbar__brand-icon">✦</span>
+        <span>ThreadSpace</span>
+      </a>
+      <nav class="navbar__links">
+        <a href="/" class="navbar__link">Home</a>
+        <a href="/posts" class="navbar__link navbar__link--active">View Posts</a>
+        <!-- Show "Make Post" only when logged in -->
+        <a href="/make-posts" class="navbar__link">Make Post</a>
+        <!-- Swap below with Login/Register for guest state -->
+        <a href="/login" class="btn btn--ghost btn--sm">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main-content">
+    <div class="container">
+
+      <div class="posts-page-header">
+        <div>
+          <h1 class="posts-page-title">All Posts</h1>
+        </div>
+        <span class="posts-page-count">6 posts published</span>
+      </div>
+
+      <div class="posts-grid">
+
+        <!-- Post Card 1 -->
+        <a href="/post" class="post-card">
+          <h2 class="post-card__title">The Case for Slower, Deeper Thinking in Tech</h2>
+          <div class="post-card__meta">
+            <div class="avatar">A</div>
+            <span class="post-card__author">alex_chen</span>
+          </div>
+        </a>
+
+        <!-- Post Card 2 -->
+        <a href="/post" class="post-card">
+          <h2 class="post-card__title">Design Systems Are a Team Sport</h2>
+          <div class="post-card__meta">
+            <div class="avatar">M</div>
+            <span class="post-card__author">maya_r</span>
+          </div>
+        </a>
+
+        <!-- Post Card 3 -->
+        <a href="/post" class="post-card">
+          <h2 class="post-card__title">Why I Switched from React to SvelteKit</h2>
+          <div class="post-card__meta">
+            <div class="avatar">D</div>
+            <span class="post-card__author">devdude99</span>
+          </div>
+        </a>
+
+        <!-- Post Card 4 -->
+        <a href="/post" class="post-card">
+          <h2 class="post-card__title">The Quiet Art of API Design</h2>
+          <div class="post-card__meta">
+            <div class="avatar">B</div>
+            <span class="post-card__author">backend_sarah</span>
+          </div>
+        </a>
+
+        <!-- Post Card 5 -->
+        <a href="/post" class="post-card">
+          <h2 class="post-card__title">On Writing Documentation Worth Reading</h2>
+          <div class="post-card__meta">
+            <div class="avatar">A</div>
+            <span class="post-card__author">alex_chen</span>
+          </div>
+        </a>
+
+        <!-- Post Card 6 -->
+        <a href="/post" class="post-card">
+          <h2 class="post-card__title">Dark Mode Is Not Just a Color Swap</h2>
+          <div class="post-card__meta">
+            <div class="avatar">M</div>
+            <span class="post-card__author">maya_r</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
+{{end}}

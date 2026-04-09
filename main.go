@@ -12,33 +12,6 @@ import (
 )
 
 var tmpl = template.Must(template.ParseGlob("./templates/*.html"))
-var i int
-
-func authMiddleWare(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		session, err := r.Cookie("session_id")
-
-		if err != nil {
-			http.Redirect(w, r, "/login", http.StatusSeeOther)
-			return
-		}
-
-		username, ok := storage.Sessions[session.Value]
-		if !ok {
-			http.Redirect(w, r, "/login", 303)
-			return
-		}
-
-		_, exists := storage.Users[username]
-
-		if !exists {
-			http.Redirect(w, r, "/login", 303)
-			return
-		}
-
-		next.ServeHTTP(w, r)
-	})
-}
 
 func home(w http.ResponseWriter, r *http.Request) {
 
@@ -56,7 +29,6 @@ func home(w http.ResponseWriter, r *http.Request) {
 }
 
 func login(w http.ResponseWriter, r *http.Request) {
-	i++
 	session := uuid.New().String()
 
 	switch r.Method {
@@ -91,14 +63,12 @@ func login(w http.ResponseWriter, r *http.Request) {
 			Value:    session,
 			HttpOnly: true,
 		})
-		http.Redirect(w, r, "/dashboard", 303)
+		http.Redirect(w, r, "/make-posts", 303)
 
 	}
 }
 
 func register(w http.ResponseWriter, r *http.Request) {
-	var i int
-	i++
 	switch r.Method {
 	case "GET":
 		err := tmpl.ExecuteTemplate(w, "register", nil)
@@ -119,7 +89,7 @@ func register(w http.ResponseWriter, r *http.Request) {
 		password := r.FormValue("password")
 
 		newUser := models.Users{
-			ID:       i,
+			ID:       uuid.New().ID(),
 			Username: username,
 			Password: password,
 		}
@@ -128,7 +98,7 @@ func register(w http.ResponseWriter, r *http.Request) {
 
 		//I might not need this line because I might handle it later in middleware
 		if ok {
-			http.Redirect(w, r, "/dashboard", http.StatusSeeOther)
+			http.Redirect(w, r, "/make-posts", http.StatusSeeOther)
 			return
 		}
 		//take note of this line
@@ -180,11 +150,11 @@ func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 
 	http.HandleFunc("/", home)
-	http.Handle("/login", authMiddleWare(http.HandlerFunc(login)))
-	http.Handle("/register", authMiddleWare(http.HandlerFunc(register)))
-	http.Handle("/posts", authMiddleWare(http.HandlerFunc(posts)))
+	http.HandleFunc("/login", login)
+	http.HandleFunc("/register", register)
+	http.HandleFunc("/posts", posts)
 	http.HandleFunc("/make-posts", makePosts)
-	http.Handle("/post", authMiddleWare(http.HandlerFunc(post)))
+	http.HandleFunc("/post", post)
 
 	fmt.Println("http://localhost:8080")
 

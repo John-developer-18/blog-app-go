@@ -13,6 +13,49 @@ import (
 
 var tmpl = template.Must(template.ParseGlob("./templates/*.html"))
 
+//Middleware for authentication and redirection
+
+func authMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		session, err := r.Cookie("session_id")
+
+		if err != nil {
+			http.Redirect(w, r, "/login", 303)
+			return
+		}
+		session_id := session.Value
+
+		_, ok := storage.Sessions[session_id]
+
+		if !ok {
+			http.Redirect(w, r, "/login", 303)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}
+
+func guestMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+		session, err := r.Cookie("session_id")
+
+		if err == nil {
+			session_id := session.Value
+
+			_, ok := storage.Sessions[session_id]
+
+			if ok {
+				http.Redirect(w, r, "/make-posts", http.StatusSeeOther)
+				return
+			}
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}
+
 func home(w http.ResponseWriter, r *http.Request) {
 
 	if r.URL.Path != "/" && r.URL.Path != "/home" {
@@ -40,6 +83,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	case "POST":
+
 		errors := r.ParseForm()
 
 		if errors != nil {
@@ -53,7 +97,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 		value, ok := storage.Users[username]
 
 		if !ok || value.Password != password {
-			http.Error(w, "Unauthorized Access", http.StatusUnauthorized)
+			http.Redirect(w, r, "/login", http.StatusSeeOther)
 			return
 		}
 
@@ -146,15 +190,33 @@ func post(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func logout(w http.ResponseWriter, r *http.Request) {
+	session, err := r.Cookie("session")
+
+	if err == nil {
+		sessionID := session.Value
+		delete(storage.Sessions, sessionID)
+	}
+
+	http.SetCookie(w, &http.Cookie{
+		Name:   "session_id",
+		Value:  "",
+		MaxAge: -1,
+	})
+
+	http.Redirect(w, r, "/login", 303)
+}
+
 func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 
+	http.Handle("/make-posts", authMiddleware(http.HandlerFunc(makePosts)))
+	http.Handle("/login", guestMiddleware(http.HandlerFunc(login)))
+	http.Handle("/register", guestMiddleware(http.HandlerFunc(register)))
 	http.HandleFunc("/", home)
-	http.HandleFunc("/login", login)
-	http.HandleFunc("/register", register)
 	http.HandleFunc("/posts", posts)
-	http.HandleFunc("/make-posts", makePosts)
 	http.HandleFunc("/post", post)
+	http.HandleFunc("/logout", logout)
 
 	fmt.Println("http://localhost:8080")
 
